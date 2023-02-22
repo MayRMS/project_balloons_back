@@ -1,12 +1,12 @@
 const express = require('express');
-require('dotenv-safe').config();
+require('dotenv').config();
 const app = express()
-const port = process.env.PORT;
+const PORT = process.env.PORT;
+const router = require('./router.js')
+app.use(express.json())
+app.use(router);
 
 
 
-
-
-
-app.listen(port, ()=> console.log(`Server UP. Running at port: ${port}`));
+app.listen(PORT, ()=> console.log(`Server UP. Running at port: ${PORT}`));
 
