@@ -1,0 +1,26 @@
+{
+  "name": "balloons_back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "start:dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MayRMS/project_balloons_back.git"
+  },
+  "author": "Maria Ruiz de Molina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MayRMS/project_balloons_back/issues"
+  },
+  "homepage": "https://github.com/MayRMS/project_balloons_back#readme",
+  "dependencies": {
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}
