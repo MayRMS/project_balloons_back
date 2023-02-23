@@ -1,14 +1,27 @@
 const mongoose = require('mongoose');
 
 const carerSchema = new mongoose.Schema({
-    name: String, 
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
     workArea: String,
     availability: String,
     type: String,
     fee: Number,
     recordChecked: Boolean,
-    //photo: string
-})
+    photo: String
+}, { timestamps: true })
 
 
 const CarerModel = mongoose.model("Carer", carerSchema);

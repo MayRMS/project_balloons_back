@@ -1,9 +1,8 @@
 const router = require('express').Router();
-const { getAll } = require('./controllers')
+const { getAll } = require('./controllers');
+const { signUp } = require('./controllers');
+const { logIn } = require('./controllers');
 
-//desde aquí comprobamos que la petición sea correcta, llamamos al controller, y respondemos
-
-// hay que listar a todos los trabajadores
 router.get('/', async (req, res) => {
     try {
         const carers = await getAll();
@@ -12,6 +11,34 @@ router.get('/', async (req, res) => {
         console.log({e})
         res.status(500).json({msg: 'internal server error'})
     }
-})
+});
+
+router.post('/', async (req, res) => {
+    const carer = req.body;
+    if (!carer.name || !carer.email || !carer.password) {
+        return res.status(400).json({ message: 'bad request'})
+    }
+    try {
+        const carers = await signUp(carer);
+        res.json({ carers })
+    } catch (e){
+        console.log({e})
+        if (err.httpCode) return res.status(err.httpCode).json(err)
+        res.status(500).json({msg: 'internal server error'})
+    }
+});
+
+
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body
+    try {
+        const carer = await logIn(email, password);
+        res.json(carer)
+    } catch (e){
+        console.log({e})
+        res.status(500).json({msg: 'internal server error'})
+    }
+});
+    
 
 module.exports = router;
