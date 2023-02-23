@@ -1,6 +1,6 @@
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
 
-const model = new Schema({
+const carerSchema = new mongoose.Schema({
     name: String, 
     workArea: String,
     availability: String,
@@ -11,5 +11,5 @@ const model = new Schema({
 })
 
 
-
-module.exports = model;
+const CarerModel = mongoose.model("Carer", carerSchema);
+module.exports = CarerModel;
