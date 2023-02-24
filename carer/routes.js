@@ -1,7 +1,6 @@
 const router = require('express').Router();
-const { getAll } = require('./controllers');
-const { signUp } = require('./controllers');
-const { logIn } = require('./controllers');
+const { getAll, signUp, logIn, update } = require('./controllers');
+
 
 router.get('/', async (req, res) => {
     try {
@@ -36,9 +35,22 @@ router.post('/login', async (req, res) => {
         res.json(carer)
     } catch (e){
         console.log({e})
+        if (e.httpCode) return res.status(e.httpCode).json(e)
         res.status(500).json({msg: 'internal server error'})
     }
 });
-    
+
+router.put('/:id', async (req, res) => {
+    const upd = req.body;
+    const { id } = req.params;
+    try {
+        const carer = await update(id, upd);
+        res.json(carer)
+    } catch (e){
+        console.log({e})
+        res.status(500).json({msg: 'internal server error'})
+    }
+}) 
+
 
 module.exports = router;
