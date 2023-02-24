@@ -1,11 +1,10 @@
 const router = require('express').Router();
-const { getAll, signUp, logIn, update } = require('./controllers');
-
+const { getAll, signUp, logIn, update } = require('./controllers.js');
 
 router.get('/', async (req, res) => {
     try {
-        const carers = await getAll();
-        res.json({ carers })
+        const users = await getAll();
+        res.json({ users })
     } catch (e){
         console.log({e})
         res.status(500).json({msg: 'internal server error'})
@@ -13,13 +12,13 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const carer = req.body;
-    if (!carer.name || !carer.email || !carer.password) {
+    const user = req.body;
+    if (!user.name || !user.email || !user.password) {
         return res.status(400).json({ message: 'bad request'})
     }
     try {
-        const carers = await signUp(carer);
-        res.json({ carers })
+        const users = await signUp(user);
+        res.json({ users })
     } catch (err){
         console.log({err})
         if (err.httpCode) return res.status(err.httpCode).json(err)
@@ -27,12 +26,11 @@ router.post('/', async (req, res) => {
     }
 });
 
-
 router.post('/login', async (req, res) => {
     const { email, password } = req.body
     try {
-        const carer = await logIn(email, password);
-        res.json(carer)
+        const user = await logIn(email, password);
+        res.json(user)
     } catch (e){
         console.log({e})
         if (e.httpCode) return res.status(e.httpCode).json(e)
@@ -44,8 +42,8 @@ router.put('/:id', async (req, res) => {
     const upd = req.body;
     const { id } = req.params;
     try {
-        const carer = await update(id, upd);
-        res.json(carer)
+        const user = await update(id, upd);
+        res.json(user)
     } catch (e){
         console.log({e})
         res.status(500).json({msg: 'internal server error'})
