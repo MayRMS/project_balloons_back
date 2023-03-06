@@ -15,9 +15,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    workArea: String,
-    offers: String,
-    specifications: String
+    //workArea: String,
+    //offers: String,
+    //specifications: String
 }, { timestamps: true })
 
 
