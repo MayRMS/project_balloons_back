@@ -17,8 +17,8 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ message: 'bad request'})
     }
     try {
-        const users = await signUp(user);
-        res.json({ users })
+        const response = await signUp(user);
+        res.json(response)
     } catch (err){
         console.log({err})
         if (err.httpCode) return res.status(err.httpCode).json(err)
@@ -30,6 +30,7 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body
     try {
         const user = await logIn(email, password);
+        console.log(user)
         res.json(user)
     } catch (e){
         console.log({e})

@@ -18,8 +18,8 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ message: 'bad request'})
     }
     try {
-        const carers = await signUp(carer);
-        res.json({ carers })
+        const response = await signUp(carer);
+        res.json(response)
     } catch (err){
         console.log({err})
         if (err.httpCode) return res.status(err.httpCode).json(err)

@@ -18,7 +18,7 @@ const carerSchema = new mongoose.Schema({
     workArea: String,
     availability: String,
     type: String,
-    fee: Number,
+    fee: String,
     recordChecked: Boolean,
     photo: String
 }, { timestamps: true })

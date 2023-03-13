@@ -20,7 +20,7 @@ const offerSchema = new mongoose.Schema({
     workArea: String,
     availability: String,
     type: String,
-    feeOffered: Number,
+    feeOffered: String,
 }, { timestamps: true })
 
 
