@@ -21,6 +21,7 @@ const offerSchema = new mongoose.Schema({
     availability: String,
     type: String,
     feeOffered: String,
+    registeredCarers: [String],
 }, { timestamps: true })
 
 

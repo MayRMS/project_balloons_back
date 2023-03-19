@@ -15,7 +15,11 @@ const signUp = async (data) => {
         token: generateToken(formatCarer(carer))
     };
 };
-
+const findByIds = async (ids) => {
+    const carers = await CarerModel.find({_id: ids})
+    console.log(carers)
+    return carers.map(e => formatCarer(e));
+}
 const logIn = async (email, password) =>{
     const carer = await CarerModel.findOne({ email });
     if (!bcrypt.compareSync(password, carer?.password || '')) throw customError('user not found', 404);
@@ -55,5 +59,6 @@ module.exports = {
     getAll,
     signUp,
     logIn,
-    update
+    update,
+    findByIds
 }

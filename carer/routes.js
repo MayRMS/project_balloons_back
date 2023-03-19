@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getAll, signUp, logIn, update } = require('./controllers');
+const { getAll, signUp, logIn, update, findByIds } = require('./controllers');
 
 
 router.get('/', async (req, res) => {
@@ -11,7 +11,16 @@ router.get('/', async (req, res) => {
         res.status(500).json({msg: 'internal server error'})
     }
 });
-
+router.get('/registered', async (req, res) => {
+    try {
+        const ids = req.query?.ids?.split(',')
+        const carers = await findByIds(ids)
+        res.json({ carers })
+    } catch (e) {
+        console.log({e})
+        res.status(500).json({msg: 'internal server error'})
+    }
+})
 router.post('/', async (req, res) => {
     const carer = req.body;
     if (!carer.name || !carer.email || !carer.password) {
