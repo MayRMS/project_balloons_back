@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { auth } = require('../middleware/auth.js');
 const { getAllOffers,
      newOffer,
      updateOffer,
@@ -8,7 +9,7 @@ const { getAllOffers,
      getOffersByCarerId
 } = require('./controllers.js');
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const offers = await getAllOffers();
         console.log(offers)
@@ -18,7 +19,7 @@ router.get('/', async (req, res) => {
         res.status(500).json({msg: 'internal server error'})
     }
 });
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
     try {
         const { id } =  req.params;
         const offers = await getOffersById(id);
@@ -28,7 +29,7 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({msg: 'internal server error'})
     }
 });
-router.get('/user/:id', async (req, res) => {
+router.get('/user/:id', auth, async (req, res) => {
     try {
         const { id } =  req.params;
         const offers = await getOffersByUserId(id);
@@ -38,7 +39,7 @@ router.get('/user/:id', async (req, res) => {
         res.status(500).json({msg: 'internal server error'})
     }
 });
-router.get('/carer/:carerId', async (req, res) => {
+router.get('/carer/:carerId', auth, async (req, res) => {
     const { carerId } = req.params;
     try {
         const offers = await getOffersByCarerId(carerId)
@@ -49,7 +50,7 @@ router.get('/carer/:carerId', async (req, res) => {
         res.status(500).json({msg: 'internal server error'})
     }
 })
-router.put('/:id/carer/:carerId', async (req, res) => {
+router.put('/:id/carer/:carerId', auth, async (req, res) => {
     const { id, carerId } = req.params;
     try {
         const offer = await apply(id, carerId)
@@ -60,7 +61,7 @@ router.put('/:id/carer/:carerId', async (req, res) => {
         res.status(500).json({msg: 'internal server error'})
     }
 })
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     const offer = req.body;
     if (!offer.title || !offer.specifications || !offer.user) {
         console.log(offer)
@@ -76,7 +77,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
     const upd = req.body;
     const { id } = req.params;
     try {

@@ -1,8 +1,9 @@
 const router = require('express').Router();
+const { auth } = require('../middleware/auth');
 const { getAll, signUp, logIn, update, findByIds } = require('./controllers');
 
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const carers = await getAll();
         res.json({ carers })
@@ -11,7 +12,7 @@ router.get('/', async (req, res) => {
         res.status(500).json({msg: 'internal server error'})
     }
 });
-router.get('/registered', async (req, res) => {
+router.get('/registered', auth, async (req, res) => {
     try {
         const ids = req.query?.ids?.split(',')
         const carers = await findByIds(ids)
@@ -49,7 +50,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
     const upd = req.body;
     const { id } = req.params;
     try {

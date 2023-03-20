@@ -1,7 +1,8 @@
 const router = require('express').Router();
+const { auth } = require('../middleware/auth.js');
 const { getAll, signUp, logIn, update } = require('./controllers.js');
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const users = await getAll();
         res.json({ users })
@@ -39,7 +40,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
     const upd = req.body;
     const { id } = req.params;
     try {
